@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+        
+        <!-- 开启spring的annotation支持 -->
+        <context:annotation-config/>
+        <!-- 指定spring去哪些包找，如：base-package="com.hx.spring"表示自动在com.hx.spring下扫描所有的类 -->
+        <context:component-scan base-package="com.hx.spring"/>
+        
+        <!-- 对于静态方法的注入，要加上factory-method="getInstance"表示要注入静态方法getInstance -->
+        <bean id="userDynamicDao" class="com.hx.spring.proxy.LogProxy" factory-method="getInstance">
+        	<!-- 自动去找annotation的 userDao-->
+        	<constructor-arg ref="userDao"/>
+        </bean>
+        <!-- 如果要给role模块加上日志，直接加上下面的代码即可 -->
+        <!-- <bean id="roleDynamicDao" class="com.hx.spring.proxy.LogProxy" factory-method="getInstance">
+        	自动去找annotation的 roleDao
+        	<constructor-arg ref="roleDao"/>
+        </bean> -->
+</beans>
